@@ -45,6 +45,16 @@
       },
       "source": "./plugins/nextjs",
       "category": "development"
+    },
+    {
+      "name": "test",
+      "description": "ai-marketplace 마켓플레이스 연동 테스트 플러그인",
+      "version": "0.1.0",
+      "author": {
+        "name": "jwhlll"
+      },
+      "source": "./plugins/test",
+      "category": "development"
     }
   ]
 }
