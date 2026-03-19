@@ -1,0 +1,8 @@
+{
+  "name": "jira",
+  "description": "Jira 이슈 검색, 생성, 스프린트 분석",
+  "version": "0.1.0",
+  "author": {
+    "name": "jwhlll"
+  }
+}

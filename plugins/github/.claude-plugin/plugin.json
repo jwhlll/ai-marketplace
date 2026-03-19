@@ -1,0 +1,8 @@
+{
+  "name": "github",
+  "description": "GitHub PR 리뷰, 이슈 분류, 릴리즈 노트 생성",
+  "version": "0.1.0",
+  "author": {
+    "name": "jwhlll"
+  }
+}
