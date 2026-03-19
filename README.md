@@ -1,56 +1,59 @@
 # AI Marketplace
 
-Claude Code에서 사용할 수 있는 MCP 플러그인 모음입니다.
+Claude Code에서 사용할 수 있는 Skills 모음입니다. MCP 서버 없이 바로 사용 가능합니다.
 
 ## 플러그인 목록
 
-| 플러그인 | 설명 | 필요한 환경변수 |
-|---------|------|----------------|
-| [jira](./plugins/jira) | Jira 이슈 검색/생성/상태 변경 | `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN` |
-| [figma](./plugins/figma) | Figma 파일/컴포넌트/댓글 조회 | `FIGMA_ACCESS_TOKEN` |
-| [github](./plugins/github) | GitHub PR/이슈/코드 검색 | `GITHUB_TOKEN` |
+### Jira
+| Skill | 설명 |
+|-------|------|
+| `jira-daily` | 오늘 내 작업 현황 요약 |
+| `jira-sprint` | 현재 스프린트 진행 상황 분석 |
+| `jira-create` | 이슈 생성 |
 
-## Claude Code 연동
+필요한 환경변수: `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`
 
-### 1. 빌드
+### Figma
+| Skill | 설명 |
+|-------|------|
+| `figma-review` | 미해결 댓글 리뷰 |
+| `figma-components` | 컴포넌트 목록 분석 |
 
-```bash
-pnpm install
-pnpm build
-```
+필요한 환경변수: `FIGMA_ACCESS_TOKEN`
 
-### 2. MCP 등록
+### GitHub
+| Skill | 설명 |
+|-------|------|
+| `github-pr-review` | PR 분석 및 리뷰 포인트 제안 |
+| `github-issue-triage` | 이슈 분류 및 우선순위 |
+| `github-release-note` | 릴리즈 노트 자동 작성 |
 
-```bash
-# Jira
-claude mcp add jira node /path/to/ai-marketplace/plugins/jira/dist/index.js \
-  -e JIRA_BASE_URL=https://yourcompany.atlassian.net \
-  -e JIRA_EMAIL=you@email.com \
-  -e JIRA_API_TOKEN=your_token
+필요한 것: `gh` CLI 설치 및 로그인
 
-# Figma
-claude mcp add figma node /path/to/ai-marketplace/plugins/figma/dist/index.js \
-  -e FIGMA_ACCESS_TOKEN=your_token
-
-# GitHub
-claude mcp add github node /path/to/ai-marketplace/plugins/github/dist/index.js \
-  -e GITHUB_TOKEN=your_token
-```
-
-### 3. Skills 등록
+## 설치
 
 ```bash
-# 플러그인별 skills를 Claude Code에 복사
+# 원하는 플러그인의 skills를 Claude Code에 복사
+cp plugins/github/skills/* ~/.claude/skills/
 cp plugins/jira/skills/* ~/.claude/skills/
 cp plugins/figma/skills/* ~/.claude/skills/
-cp plugins/github/skills/* ~/.claude/skills/
+```
+
+## 사용법
+
+Claude Code에서 `/` 로 skill 호출:
+
+```
+/github-pr-review owner/repo 42
+/jira-daily
+/figma-review abc123filekey
 ```
 
 ## 새 플러그인 추가
 
-```bash
-mkdir -p plugins/새플러그인/src plugins/새플러그인/skills
-# package.json, tsconfig.json, src/index.ts 작성
 ```
-
-`pnpm-workspace.yaml`은 `plugins/*`를 자동으로 인식합니다.
+plugins/
+└── 새플러그인/
+    └── skills/
+        └── *.md
+```
